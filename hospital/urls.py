@@ -7,7 +7,6 @@ from api.router import router
 from django.conf import settings
 from django.conf.urls.static import static
 from api.views import Login
-from api.views import Pharmacylogin
 
 
 schema_view = get_schema_view(
@@ -28,6 +27,5 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('api/', include(router.urls)),
     path('login/', Login),
-    path('pharmacylogin/', Pharmacylogin),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

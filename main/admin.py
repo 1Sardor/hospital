@@ -18,9 +18,6 @@ class DoctorAdmin(UserAdmin):
     )
 
 
-admin.site.register(MyOwnToken)
-
-
 @admin.register(Direction)
 class DirectionAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']

@@ -8,7 +8,6 @@ from .serializer import *
 from main.models import *
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
-from api.authentication import MyOwnTokenAuthentication
 
 
 @api_view(['POST'])
@@ -49,43 +48,6 @@ def Login(request):
         return Response(data)
     except Exception as er:
         return Response({"error": f'{er}'})
-
-
-@api_view(['POST'])
-def Pharmacylogin(request):
-    username = request.data['username']
-    password = request.data['password']
-    try:
-        cl = Pharmacy.objects.get(login=username)
-        if password == cl.password:
-            status = 200
-            try:
-                myT = MyOwnToken.objects.get(user_id=cl.id)
-            except MyOwnToken.DoesNotExist:
-                myT = MyOwnToken.objects.create(user_id=cl.id)
-
-            data = {
-                'status': status,
-                'pharmacy': cl.id,
-                'token': myT.key,
-                'fio': cl.username,
-            }
-        else:
-            status = 403
-            massage = "Username yoki parol xato!"
-            data = {
-                'status': status,
-                'massage': massage,
-            }
-    except Pharmacy.DoesNotExist:
-        status = 404
-        massage = "Bunday foydalanuvchi mavjud emas!"
-        data = {
-            'status': status,
-            'massage': massage,
-        }
-
-    return Response(data)
 
 
 class DoctorView(viewsets.ModelViewSet):
@@ -238,30 +200,3 @@ class CommentsView(viewsets.ModelViewSet):
         except Exception as err:
             return Response({'error': f'{err}'})
 
-
-class PharmacyView(viewsets.ModelViewSet):
-    queryset = Pharmacy.objects.all()
-    serializer_class = PharmacySerializer
-    authentication_classes = (MyOwnTokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
-
-    @action(methods=['GET'], detail=False)
-    def get_retsepts(self, request):
-        try:
-            patient_id = request.GET['patient']
-            ret = Retsepts.objects.filter(patient_id=patient_id, active=True).last()
-            ser = RetseptsSerializer(ret)
-            return Response(ser.data)
-        except Exception as err:
-            return Response({'error': f'{err}'})
-
-    @action(methods=['GET'], detail=False)
-    def search_client(self, request):
-        try:
-            region = int(request.GET['region'])
-            search = request.GET['search']
-            ret = Patient.objects.filter(region_id=region, name__icontains=search)
-            ser = PatientSerializer(ret, many=True)
-            return Response(ser.data)
-        except Exception as err:
-            return Response({'error': f'{err}'})
