@@ -15,6 +15,8 @@ namespace HospitalApp.ViewModels
             _viewModel = viewModel;
             LoadingVisibility = Visibility.Collapsed;
 
+            Username = "Abdurahmon";
+            Password = "123";
 
             _loginService = new LoginService();
 
@@ -92,7 +94,7 @@ namespace HospitalApp.ViewModels
                     MainWindowViewModel.user_token = loginResponse.token;
 
                     _viewModel.Username = loginResponse.username;
-                    _viewModel.SelectedViewModel = null;
+                    _viewModel.SelectedViewModel = new PatientViewModel();
                     _viewModel.MainMenuVisibility = Visibility.Visible;
                     _viewModel.AccountVisibility = Visibility.Visible;
                 }

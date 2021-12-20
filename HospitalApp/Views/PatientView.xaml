@@ -15,9 +15,9 @@
     </UserControl.Resources>
     <Grid Background="#F5F9FC">
         <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <!-- first row -->
@@ -26,14 +26,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            
-
-
             <Grid Grid.Column="1"
-                  HorizontalAlignment="Center">
+                  HorizontalAlignment="Center" Width="Auto">
                 <TextBox x:Name="txtSearch" Tag="Izlash..." Style="{StaticResource txtSearch}" 
                      Width="500" Height="34" VerticalAlignment="Center"  
-                     Margin="0 -100 10 0" >
+                     Margin="0 0 0 0">
                     <TextBox.Text>
                         <Binding Path="Search"
                              UpdateSourceTrigger="PropertyChanged"/>
@@ -47,14 +44,14 @@
 
                 <materialDesign:PackIcon Kind="Search" Height="25" Width="25"
                                      VerticalAlignment="Center" HorizontalAlignment="Right"
-                                     Margin="0 -100 25 0"/>
+                                     Margin="0 0 20 0"/>
 
             </Grid>
 
         </Grid>
 
         <!--second row for datagrid-->
-        <Grid Grid.Row="1" Visibility="Collapsed">
+        <Grid Grid.Row="2" Visibility="Visible">
             <ScrollViewer x:Name="scrollViewer" VerticalScrollBarVisibility="Disabled">
                 <ScrollViewer.Style>
                     <Style TargetType="ScrollViewer">
@@ -68,7 +65,7 @@
                 <!--HorizontalGridLinesBrush="#E3E2E2"-->
                 <DataGrid x:Name="dataGridClient" Visibility="Visible"
                         HorizontalScrollBarVisibility="Auto" 
-                        Width="Auto"
+                        Width="700"
                         Background="White"
                         AutoGenerateColumns="False"
                         GridLinesVisibility="Horizontal"
@@ -78,7 +75,7 @@
                         CanUserReorderColumns="False"
                         CanUserResizeColumns="False"
                         CanUserResizeRows="False"
-                        Margin="10"
+                        Margin="10 0 0 10"
                         BorderThickness="1" SelectionMode="Single" SelectionUnit="FullRow"
                         AlternationCount="2"   
                         ItemsSource="{Binding Path=ClientList, Mode=TwoWay}"
@@ -93,67 +90,9 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="№" Binding="{Binding get_order}" IsReadOnly="True" Width="70"/>
                         <DataGridTextColumn Header="Mijoz" Binding="{Binding name}" IsReadOnly="True" Width="150*"/>
+                        <DataGridTextColumn Header="Telefon" Binding="{Binding agent}" IsReadOnly="True" Width="150"
+                                            TextBlock.TextAlignment="Right"/>
 
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.Header>
-                                <TextBlock TextAlignment="Left" 
-                                    Text="Kompaniya" Width="100"/>
-                            </DataGridTemplateColumn.Header>
-
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Width="100"
-                                               TextAlignment="Left"
-                                               TextWrapping="Wrap"
-                                               Text="{Binding company_name,
-                                               Mode=TwoWay,
-                                               UpdateSourceTrigger=PropertyChanged}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-
-                        </DataGridTemplateColumn>
-
-                        <DataGridTextColumn Header="Telefon" Binding="{Binding phone}" IsReadOnly="True" Width="120"/>
-
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.Header>
-                                <TextBlock TextAlignment="Left" 
-                                    Text="Izoh" Width="120"/>
-                            </DataGridTemplateColumn.Header>
-
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Width="120"
-                                               TextAlignment="Left"
-                                               TextWrapping="Wrap"
-                                               Text="{Binding comment,
-                                               Mode=TwoWay,
-                                               UpdateSourceTrigger=PropertyChanged}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-
-                        </DataGridTemplateColumn>
-
-                        <DataGridTextColumn Header="Ovoz(audio)" Binding="{Binding audio}" IsReadOnly="True" Width="110"/>
-                        <DataGridTextColumn Header="Xabar topdi" Binding="{Binding agent}" IsReadOnly="True" Width="120"/>
-                        <DataGridTextColumn Header="Uchrashuv vaqti" Binding="{Binding created_at}" IsReadOnly="True" Width="160"/>
-
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.Header>
-                                <TextBlock TextAlignment="Center" 
-                                    Text="Berilgan mal.lar" Width="100"/>
-                            </DataGridTemplateColumn.Header>
-
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Style="{StaticResource btnMain}"
-                                            Width="80" Height="34"
-                                            Content="Ko'rish"
-                                            FontSize="14"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-
-                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
 
                 </DataGrid>
