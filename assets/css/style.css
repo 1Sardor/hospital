@@ -65,3 +65,155 @@ header  {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.linkSociac{
+    display: flex;
+    align-items: center;
+}
+
+.linkSociac a{
+    padding: 8px;
+}
+
+.linkSociac a svg{
+    width: 30px;
+}
+
+.linkSociac a:hover svg path{
+    fill: #c1c1c1;
+}
+
+.headerTitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 100px;
+}
+
+.headerTitle h1{
+    color: #fff;
+    max-width: 800px;
+    text-align: center;
+    letter-spacing: 0.2rem;
+    font-size: 45px;
+}
+
+.headerTitle p{
+    color: #fff;
+    max-width: 800px;
+    text-align: center;
+    letter-spacing: 0.2rem;
+    font-size: 24px;
+    padding-top: 20px;
+}
+
+.miniContainer{
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+.aboutUs{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 70px 0;
+}
+
+.aboutUs > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.aboutUs > div h1{
+    text-align: center;
+    font-size: 26px;
+    padding: 10px 0;
+    letter-spacing: 0.2rem;
+}
+
+.aboutUs > div p{
+    text-align: center;
+    letter-spacing: 0.2rem;
+    line-height: 25px;
+}
+
+.aboutUs > div img{
+    width: 300px;
+    height: 300px;
+}
+
+.whyWe{
+    padding: 70px 0;
+    
+}
+
+.whyWe > h1{
+    text-align: center;
+    font-size: 26px;
+    padding: 10px 0;
+    letter-spacing: 0.2rem;
+}
+
+.whyWe > p{
+    text-align: center;
+    letter-spacing: 0.2rem;
+    line-height: 25px;
+    width: 700px;
+    margin: 0 auto;
+}
+
+.whyWeBlock{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.whyWeBlock .box{
+    width: 90%;
+    padding-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.whyWeBlock .box p{
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1rem;
+}
+
+.whyWeBlock .box h1{
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    padding-bottom: 10px;
+}
+
+.contact{
+    display: grid;
+    column-gap: 40px;
+    grid-template-columns: 3fr 5fr;
+}
+
+.contactLeft{
+    box-shadow: 0 3px 10px #00000050;
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.contactLeft h1{
+    font-size: 20px;
+    padding-bottom: 10px;
+    letter-spacing: 0.1rem;
+}
