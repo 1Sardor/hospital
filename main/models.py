@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 import binascii
 import os
 
+
 class Direction(models.Model):
     name = models.CharField(max_length=255)
 
@@ -26,6 +27,10 @@ class Region(models.Model):
 
 
 class Hospital(models.Model):
+    type = models.IntegerField(choices=(
+        (1, 'state'),
+        (2, 'private'),
+    ))
     name = models.CharField(max_length=255, unique=True)
     phone = models.CharField(max_length=255)
     region = models.ForeignKey(Region, on_delete=models.CASCADE)

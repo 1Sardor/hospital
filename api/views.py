@@ -30,6 +30,7 @@ def Login(request):
                     'phone': usrs.phone,
                     'direction': usrs.direction.name,
                     'hospital': usrs.hospital.name,
+                    'hospital type': usrs.hospital.type,
                 }
             else:
                 status = 403
@@ -214,7 +215,6 @@ class CommentsView(viewsets.ModelViewSet):
             com = Comments.objects.create(patient_id=patient_id, doctor_id=doctor_id, ill=ill)
             ser = self.serializer_class(com)
             return Response(ser.data)
-
         except Exception as err:
             return Response({'error': f'{err}'})
 
