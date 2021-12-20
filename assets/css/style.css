@@ -59,11 +59,34 @@
 }
 
 header  {
-    height: 500px;
+    position: relative;
+    height: 800px;
     background-image: url('https://media.istockphoto.com/photos/modern-hospital-building-picture-id1312706413');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+header::before{
+    content: '';
+    bottom: -105px;
+    left: -22px;
+    width: 60%;
+    height: 170px;
+    background: #fff;
+    position: absolute;
+    transform: rotate(10deg);
+}
+
+header::after{
+    content: '';
+    bottom: -105px;
+    right: -22px;
+    width: 60%;
+    height: 170px;
+    background: #fff;
+    position: absolute;
+    transform: rotate(-10deg);
 }
 
 .linkSociac{
@@ -72,23 +95,27 @@ header  {
 }
 
 .linkSociac a{
-    padding: 8px;
+    color: #fff;
 }
 
-.linkSociac a svg{
-    width: 30px;
+.linkSociac a.reg{
+    margin-left: 20px;
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    align-self: flex-start;
+    background: #2091F9;
+    color: #fff;
 }
 
-.linkSociac a:hover svg path{
-    fill: #c1c1c1;
-}
 
 .headerTitle{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding-top: 100px;
+    padding-top: 200px;
 }
 
 .headerTitle h1{
@@ -115,6 +142,7 @@ header  {
 
 
 .aboutUs{
+    margin-top: 85px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 70px 0;
@@ -227,4 +255,94 @@ header  {
     border-radius: 10px;
     padding: 10px 20px;
     font-size: 16px;
+}
+
+.contactLeft button{
+    padding: 15px 40px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    align-self: flex-start;
+    background: #2091F9;
+    color: #fff;
+}
+
+.contactRight{
+    
+}
+
+.contactRight > h1{
+    letter-spacing: 0.2rem;
+    font-weight: 600;
+    font-size: 22px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.contactRight > h6{
+    padding-bottom: 10px;
+    letter-spacing: 0.2rem;
+    font-weight: normal;
+    font-size: 18px;
+    margin-left: 40px;
+}
+
+footer{
+    background: #252B42;
+    padding: 100px 0;
+}
+.footer{
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+}
+
+.footer > div{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.footer > div:last-child{
+    padding-left: 80px;
+}
+
+.footer > div:last-child > p{
+    margin-bottom: 20px;
+    letter-spacing: 0.02rem;
+    color: #fff;
+    font-size: 15px;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.footer > div:last-child > div a svg{
+    width: 30px;
+    margin-right: 20px;
+}
+
+.footer > div:last-child > div a:hover svg path{
+    fill: #2091F9
+}
+
+.footer > div h1{
+    letter-spacing: 0.02rem;
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.footer > div a{
+    letter-spacing: 0.02rem;
+    color: #fff;
+    font-size: 15px;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.footer > div a:hover{
+    color: #2091F9;
 }
