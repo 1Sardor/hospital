@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: 'Rubik';
+    box-sizing: border-box;
+}
+
+.container{
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+
+.container .nav{
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 70px;
+}
+
+.container .nav .navLeft{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .nav .navLeft h2{
+    margin-left: 20px;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.container .nav .navLeft img{
+    width: 40px;
+}
+
+.container .nav .navRight{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .nav .navRight a{
+    margin-left: 10px;
+    padding: 20px;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+    color: #FFFFFF;
+    transition: 0.4s;
+}
+
+.container .nav .navRight a:hover{
+    transition: 0.4s;
+    color: #c1c1c1;
+}
+
+header  {
+    height: 500px;
+    background-image: url('https://media.istockphoto.com/photos/modern-hospital-building-picture-id1312706413');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
