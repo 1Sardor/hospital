@@ -49,6 +49,43 @@ def Login(request):
         return Response({"error": f'{er}'})
 
 
+@api_view(['POST'])
+def Pharmacylogin(request):
+    username = request.data['username']
+    password = request.data['password']
+    try:
+        cl = Pharmacy.objects.get(login=username)
+        if password == cl.password:
+            status = 200
+            try:
+                myT = MyOwnToken.objects.get(user_id=cl.id)
+            except MyOwnToken.DoesNotExist:
+                myT = MyOwnToken.objects.create(user_id=cl.id)
+
+            data = {
+                'status': status,
+                'pharmacy': cl.id,
+                'token': myT.key,
+                'fio': cl.username,
+            }
+        else:
+            status = 403
+            massage = "Username yoki parol xato!"
+            data = {
+                'status': status,
+                'massage': massage,
+            }
+    except Pharmacy.DoesNotExist:
+        status = 404
+        massage = "Bunday foydalanuvchi mavjud emas!"
+        data = {
+            'status': status,
+            'massage': massage,
+        }
+
+    return Response(data)
+
+
 class DoctorView(viewsets.ModelViewSet):
     queryset = Doctor.objects.all()
     serializer_class = DoctorSerializer
@@ -126,11 +163,13 @@ class PatientView(viewsets.ModelViewSet):
     @action(methods=['GET'], detail=False)
     def search(self, request):
         try:
-            pass
+            region = request.data['region']
+            search = request.data['search']
+            query = self.queryset.filter(Q(region_id=region) | Q(name=search) | Q(birthday=search))
+            ser = self.serializer_class(query)
+            return Response(ser.data)
         except Exception as err:
             return Response({'error': f'{err}'})
-
-
 
 
 class RetseptsView(viewsets.ModelViewSet):
@@ -204,3 +243,4 @@ class PharmacyView(viewsets.ModelViewSet):
     serializer_class = PharmacySerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+

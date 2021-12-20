@@ -18,6 +18,9 @@ class DoctorAdmin(UserAdmin):
     )
 
 
+admin.site.register(MyOwnToken)
+
+
 @admin.register(Direction)
 class DirectionAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']
@@ -62,6 +65,6 @@ class CommentsAdmin(admin.ModelAdmin):
 
 @admin.register(Pharmacy)
 class PharmacyAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'login', 'password', 'region']
-    search_fields = ['id', 'name', 'login', 'password', 'region']
+    list_display = ['id', 'username', 'login', 'password', 'region']
+    search_fields = ['id', 'username', 'login', 'password', 'region']
 

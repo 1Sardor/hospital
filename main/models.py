@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+import binascii
+import os
 
 class Direction(models.Model):
     name = models.CharField(max_length=255)
@@ -78,10 +79,39 @@ class Comments(models.Model):
 
 
 class Pharmacy(models.Model):
-    name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255)
     login = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
+
+class MyOwnToken(models.Model):
+    """
+    The default authorization token model.
+    """
+    key = models.CharField("Key", max_length=40, primary_key=True)
+
+    user = models.OneToOneField(
+        Pharmacy, related_name='auth_token',
+        on_delete=models.CASCADE, verbose_name="Company"
+    )
+    created = models.DateTimeField("Created", auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Token"
+        verbose_name_plural = "Tokens"
+
+    def save(self, *args, **kwargs):
+        if not self.key:
+            self.key = generate_key()
+        return super(MyOwnToken, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.key
+
+def generate_key():
+    return binascii.hexlify(os.urandom(20)).decode()
+
