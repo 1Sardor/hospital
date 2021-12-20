@@ -8,7 +8,7 @@ from .serializer import *
 from main.models import *
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
-
+import requests
 
 @api_view(['POST'])
 def Login(request):
@@ -66,6 +66,21 @@ class DoctorView(viewsets.ModelViewSet):
             user = Doctor.objects.create_user(username=username, password=password, phone=phone, direction_id=direction_id, hospital_id=hospital_id,)
             ser = self.serializer_class(user)
             return Response(ser.data)
+        except Exception as err:
+            return Response({'error': f'{err}'})
+
+
+    @action(methods=['POST'], detail=False)
+    def next_turn(self, request):
+        try:
+            user = request.user
+            last = Queue.objects.filter(direction=user.direction, active=True).first()
+            if last is None:
+                return Response({"message": "Navbat yo'q"})
+            last.active = False
+            last.save()
+            requests.get(url=f"http://192.168.67.104:8000/api/queue/get_last/?direction_id={user.direction.id}&hospital_id={user.hospital.id}")
+            return Response({"message": "done"})
         except Exception as err:
             return Response({'error': f'{err}'})
 
@@ -127,8 +142,9 @@ class PatientView(viewsets.ModelViewSet):
     @action(methods=['GET'], detail=False)
     def search(self, request):
         try:
+            user = request.user
             search = request.GET['search']
-            query = self.queryset.filter(name__icontains=search)
+            query = self.queryset.filter(name__icontains=search, hospital=user.hospital)
             ser = self.serializer_class(query, many=True)
             return Response(ser.data)
         except Exception as err:
@@ -206,3 +222,89 @@ class DrugsView(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
+    def create(self, request):
+        try:
+            retsept_id = request.data['retsept']
+            name = request.data['name']
+            duration = request.data['duration']
+            drug = Drugs.objects.create(retsept_id=retsept_id, name=name, duration=duration)
+            ser = self.serializer_class(drug)
+            return Response(ser.data)
+        except Exception as err:
+            return Response({'error': f'{err}'})
+
+    @action(methods=['GET'], detail=False)
+    def get_by_retsep(self, request):
+        try:
+            retsept_id = request.GET['retsept']
+            query = self.queryset.filter(retsept_id=retsept_id)
+            ser = self.serializer_class(query, many=True)
+            return Response(ser.data)
+        except Exception as err:
+            return Response({"error": f'{err}'})
+
+
+class PaymentView(viewsets.ModelViewSet):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def create(self, request):
+        try:
+            patient_id = request.data['patient']
+            summa = request.data['summa']
+            payment = Payment.objects.create(patient_id=patient_id, summa=summa)
+            query = self.serializer_class(payment)
+            return Response(query.data)
+        except Exception as err:
+            return Response({'error': f'{err}'})
+
+
+class PaymentTypesView(viewsets.ModelViewSet):
+    queryset = PaymentTypes.objects.all()
+    serializer_class = PaymentTypesSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def create(self, request):
+        try:
+            payment_id = request.data['payment']
+            name = request.data['name']
+            summa = request.data['summa']
+            payment = Payment.objects.get(id=payment_id)
+            payment.summa += summa
+            payment.save()
+            types = PaymentTypes.objects.create(payment_id=payment_id, name=name, summa=summa)
+            query = self.serializer_class(types)
+            return Response(query.data)
+        except Exception as err:
+            return Response({'error': f'{err}'})
+
+    @action(methods=['GET'], detail=False)
+    def get_types(self, request):
+        try:
+            payment_id = request.GET['payment']
+            query = self.queryset.filter(payment_id=payment_id)
+            ser = self.serializer_class(query, many=True)
+            return Response(ser.data)
+        except Exception as err:
+            return Response({'error': f'{err}'})
+
+
+class QueueView(viewsets.ModelViewSet):
+    queryset = Queue.objects.all()
+    serializer_class = QueueSerializer
+    # authentication_classes = (TokenAuthentication,)
+    # permission_classes = (IsAuthenticated,)
+
+    @action(methods=['GET'], detail=False)
+    def get_last(self, request):
+        try:
+            hospital_id = request.GET['hospital_id']
+            direction_id = request.GET['direction_id']
+            last = self.queryset.filter(direction_id=direction_id, active=True, hospital_id=hospital_id).first()
+            ser = self.serializer_class(last)
+            return Response(ser.data)
+        except Exception as err:
+            return Response({'error': f'{err}'})

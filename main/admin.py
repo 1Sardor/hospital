@@ -59,3 +59,7 @@ class CommentsAdmin(admin.ModelAdmin):
     list_display = ['id', 'doctor', 'patient', 'date', 'ill']
     search_fields = ['id', 'doctor', 'patient', 'date', 'ill']
 
+
+admin.site.register(Queue)
+admin.site.register(Payment)
+admin.site.register(Drugs)

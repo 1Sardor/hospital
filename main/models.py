@@ -39,9 +39,14 @@ class Hospital(models.Model):
 
 
 class Doctor(AbstractUser):
+    type = models.IntegerField(choices=(
+        (1, 'Accountant'),
+        (2, 'Doctor'),
+    ))
     phone = models.CharField(max_length=25, null=True, blank=True)
     direction = models.ForeignKey(Direction, on_delete=models.CASCADE, null=True, blank=True)
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, null=True, blank=True)
+    room = models.CharField(max_length=255)
 
     def __str__(self):
         return self.username
@@ -54,6 +59,7 @@ class Doctor(AbstractUser):
 
 class Patient(models.Model):
     name = models.CharField(max_length=255)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, null=True, blank=True)
     phone = models.IntegerField()
     birthday = models.DateField()
 
@@ -84,3 +90,26 @@ class Comments(models.Model):
 
     def __str__(self):
         return self.patient.name
+
+
+class Payment(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    summa = models.IntegerField()
+    date = models.DateTimeField(auto_now_add=True)
+
+
+class PaymentTypes(models.Model):
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    summa = models.IntegerField()
+
+
+class Queue(models.Model):
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+    number = models.CharField(max_length=255)
+    direction = models.ForeignKey(Direction, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.number

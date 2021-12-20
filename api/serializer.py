@@ -58,3 +58,21 @@ class DrugsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Drugs
         fields = '__all__'
+
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Drugs
+        fields = '__all__'
+
+
+class PaymentTypesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PaymentTypes
+        fields = '__all__'
+
+
+class QueueSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Queue
+        fields = '__all__'
