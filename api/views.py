@@ -123,12 +123,12 @@ class CommentsView(viewsets.ModelViewSet):
     serializer_class = CommentsSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-
-    def create(self, request):
-        try:
-            pass
-        except Exception as err:
-            return Response({'error': f'{err}'})
+    #
+    # def create(self, request):
+    #     try:
+    #         pass
+    #     except Exception as err:
+    #         return Response({'error': f'{err}'})
 
     @action(methods=['GET'], detail=False)
     def get_comment_of_client(self, request):
