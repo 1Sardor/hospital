@@ -54,8 +54,7 @@ class CommentsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PharmacySerializer(serializers.ModelSerializer):
+class DrugsSerializer(serializers.ModelSerializer):
     class Meta:
-        depth = 1
-        model = Pharmacy
+        model = Drugs
         fields = '__all__'

@@ -127,10 +127,9 @@ class PatientView(viewsets.ModelViewSet):
     @action(methods=['GET'], detail=False)
     def search(self, request):
         try:
-            region = request.data['region']
-            search = request.data['search']
-            query = self.queryset.filter(Q(region_id=region) | Q(name=search))
-            ser = self.serializer_class(query)
+            search = request.GET['search']
+            query = self.queryset.filter(name__icontains=search)
+            ser = self.serializer_class(query, many=True)
             return Response(ser.data)
         except Exception as err:
             return Response({'error': f'{err}'})
@@ -199,4 +198,11 @@ class CommentsView(viewsets.ModelViewSet):
             return Response(ser.data)
         except Exception as err:
             return Response({'error': f'{err}'})
+
+
+class DrugsView(viewsets.ModelViewSet):
+    queryset = Drugs.objects.all()
+    serializer_class = DrugsSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 

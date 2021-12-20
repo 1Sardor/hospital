@@ -50,18 +50,12 @@ class PatientAdmin(admin.ModelAdmin):
 
 @admin.register(Retsepts)
 class RetseptsAdmin(admin.ModelAdmin):
-    list_display = ['id', 'doctor', 'patient', 'date', 'active']
-    search_fields = ['id', 'doctor', 'patient', 'date', 'active']
+    list_display = ['id', 'doctor', 'patient', 'date']
+    search_fields = ['id', 'doctor', 'patient', 'date']
 
 
 @admin.register(Comments)
 class CommentsAdmin(admin.ModelAdmin):
     list_display = ['id', 'doctor', 'patient', 'date', 'ill']
     search_fields = ['id', 'doctor', 'patient', 'date', 'ill']
-
-
-@admin.register(Pharmacy)
-class PharmacyAdmin(admin.ModelAdmin):
-    list_display = ['id', 'username', 'login', 'password', 'region']
-    search_fields = ['id', 'username', 'login', 'password', 'region']
 

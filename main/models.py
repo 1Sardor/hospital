@@ -53,8 +53,8 @@ class Doctor(AbstractUser):
 
 
 class Patient(models.Model):
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
+    phone = models.IntegerField()
     birthday = models.DateField()
 
     def __str__(self):
@@ -65,10 +65,15 @@ class Retsepts(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.patient.name
+
+
+class Drugs(models.Model):
+    retsept = models.ForeignKey(Retsepts, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    duration = models.CharField(max_length=255)
 
 
 class Comments(models.Model):
@@ -79,14 +84,3 @@ class Comments(models.Model):
 
     def __str__(self):
         return self.patient.name
-
-
-class Pharmacy(models.Model):
-    username = models.CharField(max_length=255)
-    login = models.CharField(max_length=255, unique=True)
-    password = models.CharField(max_length=255)
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
