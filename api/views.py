@@ -52,8 +52,31 @@ def Login(request):
 class DoctorView(viewsets.ModelViewSet):
     queryset = Doctor.objects.all()
     serializer_class = DoctorSerializer
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    # authentication_classes = (TokenAuthentication,)
+    # permission_classes = (IsAuthenticated,)
+
+    def create(self, request):
+        try:
+            username = request.data['username']
+            password = request.data['password']
+            direction_id = request.data['direction']
+            hospital_id = request.data['hospital']
+            phone = request.data['phone']
+            user = Doctor.objects.create_user(username=username, password=password, phone=phone, direction_id=direction_id, hospital_id=hospital_id,)
+            ser = self.serializer_class(user)
+            return Response(ser.data)
+        except Exception as err:
+            return Response({'error': f'{err}'})
+
+    @action(methods=['GET'], detail=False)
+    def get_hospital_doctors(self, request):
+        try:
+            hospital_id = request.data['hospital']
+            query = self.queryset.filter(hospital_id=hospital_id)
+            ser = self.serializer_class(query, many=True)
+            return Response(ser.data)
+        except Exception as err:
+            return Response({'error': f'{err}'})
 
 
 class DirectionView(viewsets.ModelViewSet):
@@ -76,6 +99,16 @@ class RegionView(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
+    @action(methods=['GET'], detail=False)
+    def get_province_region(self, request):
+        try:
+            province_id = request.data['province']
+            query = self.queryset.filter(province_id=province_id)
+            ser = self.serializer_class(query, many=True)
+            return Response(ser.data)
+        except Exception as err:
+            return Response({'error': f'{err}'})
+
 
 class HospitalView(viewsets.ModelViewSet):
     queryset = Hospital.objects.all()
@@ -89,6 +122,15 @@ class PatientView(viewsets.ModelViewSet):
     serializer_class = PatientSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+
+    @action(methods=['GET'], detail=False)
+    def search(self, request):
+        try:
+            pass
+        except Exception as err:
+            return Response({'error': f'{err}'})
+
+
 
 
 class RetseptsView(viewsets.ModelViewSet):
@@ -121,14 +163,20 @@ class RetseptsView(viewsets.ModelViewSet):
 class CommentsView(viewsets.ModelViewSet):
     queryset = Comments.objects.all()
     serializer_class = CommentsSerializer
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
-    #
-    # def create(self, request):
-    #     try:
-    #         pass
-    #     except Exception as err:
-    #         return Response({'error': f'{err}'})
+    # authentication_classes = (TokenAuthentication,)
+    # permission_classes = (IsAuthenticated,)
+
+    def create(self, request):
+        try:
+            patient_id = request.data['patient']
+            doctor_id = request.data['doctor']
+            ill = request.data['ill']
+            com = Comments.objects.create(patient_id=patient_id, doctor_id=doctor_id, ill=ill)
+            ser = self.serializer_class(com)
+            return Response(ser.data)
+
+        except Exception as err:
+            return Response({'error': f'{err}'})
 
     @action(methods=['GET'], detail=False)
     def get_comment_of_client(self, request):

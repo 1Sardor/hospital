@@ -50,7 +50,6 @@ class RetseptsSerializer(serializers.ModelSerializer):
 
 class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
-        depth = 1
         model = Comments
         fields = '__all__'
 

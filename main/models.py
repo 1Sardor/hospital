@@ -49,6 +49,7 @@ class Doctor(AbstractUser):
 
 
 class Patient(models.Model):
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     birthday = models.DateField()
 
