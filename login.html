@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/login.css">
+</head>
+<body>
+    <div class="cont">
+        <div class="login" id="login">
+            <h1>Login</h1>
+            <input type="text" placeholder="Login">
+            <input type="password" placeholder="Parol">
+            <a href="./sidebar.html">Kirish</a>
+            <p id="regBtn">Ro'yihatdan o'tish</p>
+        </div>
+
+        <div class="login" id="reg">
+            <h1>Ro'yihatdan o'tish</h1>
+            <input type="text" placeholder="Ismi">
+            <input type="text" placeholder="Familyasi">
+            <input type="number" placeholder="telefon raqami">
+            <input type="password" placeholder="parol">
+            <input type="password" placeholder="parolni takrorlang">
+            <a href="./sidebar.html">Ro'yhatdan o'tish</a>
+            <p id="loginBtn">Login qilish</p>
+        </div>
+    </div>
+
+    <script>
+        let reg = document.getElementById('reg')
+        let login = document.getElementById('login')
+        let loginBtn = document.getElementById('loginBtn')
+        let regBtn = document.getElementById('regBtn')
+        
+        regBtn.addEventListener('click', () => {
+            reg.setAttribute('style', 'display:flex')
+            login.setAttribute('style', 'display:none')
+        } )
+        loginBtn.addEventListener('click', () => {
+            reg.setAttribute('style', 'display:none')
+            login.setAttribute('style', 'display:flex')
+        } )
+    </script>
+</body>
+</html>
