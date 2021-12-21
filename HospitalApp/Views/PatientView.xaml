@@ -18,6 +18,7 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <!-- first row -->
@@ -30,7 +31,8 @@
                   HorizontalAlignment="Center" Width="Auto">
                 <TextBox x:Name="txtSearch" Tag="Izlash..." Style="{StaticResource txtSearch}" 
                      Width="500" Height="34" VerticalAlignment="Center"  
-                     Margin="0 0 0 0">
+                     Margin="0 0 0 0"
+                         KeyUp="txtSearch_KeyUp">
                     <TextBox.Text>
                         <Binding Path="Search"
                              UpdateSourceTrigger="PropertyChanged"/>
@@ -56,14 +58,14 @@
                 <ScrollViewer.Style>
                     <Style TargetType="ScrollViewer">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding HasItems, ElementName=dataGridClient}" Value="False">
+                            <DataTrigger Binding="{Binding HasItems, ElementName=dataGridPatient}" Value="False">
                                 <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </ScrollViewer.Style>
                 <!--HorizontalGridLinesBrush="#E3E2E2"-->
-                <DataGrid x:Name="dataGridClient" Visibility="Visible"
+                <DataGrid x:Name="dataGridPatient" Visibility="{Binding PatientVisibility}"
                         HorizontalScrollBarVisibility="Auto" 
                         Width="700"
                         Background="White"
@@ -75,11 +77,11 @@
                         CanUserReorderColumns="False"
                         CanUserResizeColumns="False"
                         CanUserResizeRows="False"
-                        Margin="10 0 0 10"
+                        Margin="10 0"
                         BorderThickness="1" SelectionMode="Single" SelectionUnit="FullRow"
                         AlternationCount="2"   
-                        ItemsSource="{Binding Path=ClientList, Mode=TwoWay}"
-                        SelectedItem="{Binding Path=Client, Mode=TwoWay}">
+                        ItemsSource="{Binding Path=PatientList, Mode=TwoWay}"
+                        SelectedItem="{Binding Path=Patient, Mode=TwoWay}">
                     <DataGrid.Resources>
                         <!--style for scrollbar-->
                         <Style TargetType="ScrollBar">
@@ -90,8 +92,8 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="№" Binding="{Binding get_order}" IsReadOnly="True" Width="70"/>
                         <DataGridTextColumn Header="Mijoz" Binding="{Binding name}" IsReadOnly="True" Width="150*"/>
-                        <DataGridTextColumn Header="Telefon" Binding="{Binding agent}" IsReadOnly="True" Width="150"
-                                            TextBlock.TextAlignment="Right"/>
+                        <DataGridTextColumn Header="Tug'ilgan sana" Binding="{Binding birthday}" IsReadOnly="True" Width="150"/>
+                        <DataGridTextColumn Header="Telefon" Binding="{Binding phone}" IsReadOnly="True" Width="150"/>
 
                     </DataGrid.Columns>
 
@@ -102,9 +104,10 @@
 
 
         <!--loading gif animation-->
-        <Grid Grid.Row="1"  Width="100" Height="100"
-              Visibility="Collapsed"
-              VerticalAlignment="Center">
+        <Grid Grid.Row="2"  Width="100" Height="100"
+              VerticalAlignment="Center"
+              Margin="0 -150 0 0"
+              Visibility="{Binding LoadingVisibility}">
             <Grid.Background>
                 <VisualBrush>
                     <VisualBrush.Visual>
@@ -117,18 +120,22 @@
             </Grid.Background>
         </Grid>
 
-        <Grid Grid.Row="2" HorizontalAlignment="Right"
-              Visibility="Collapsed"
-             Margin="0 0 5 0">
+        <Button Grid.Row="3" 
+                Style="{StaticResource btnMain}" 
+                Width="700"
+                Visibility="{Binding ClientAddVisibility}"
+                Command="{Binding OpenAddPatientViewCommand}">
             <StackPanel Orientation="Horizontal">
-                <Button Style="{StaticResource btnMain}"
-                        Content="Arxivga olish"/>
-
-                <Button Style="{StaticResource btnMain}" 
-                        Content="Mijozlarga olish"/>
-
+                <materialDesign:PackIcon Kind="Add" 
+                                         Width="25"
+                                         Height="25"
+                                         VerticalAlignment="Center"
+                                         Margin="0 0 10 0"/>
+                <TextBlock Text="Yangi qo'shish"
+                           VerticalAlignment="Center"
+                           />
             </StackPanel>
-        </Grid>
+        </Button>
 
     </Grid>
 </UserControl>

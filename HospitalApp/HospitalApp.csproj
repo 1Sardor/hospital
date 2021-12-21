@@ -79,14 +79,25 @@
     <Compile Include="API\Login\Login.cs" />
     <Compile Include="API\Login\LoginResponse.cs" />
     <Compile Include="API\Login\LoginService.cs" />
+    <Compile Include="API\Patient\AddPatient\AddPatient.cs" />
+    <Compile Include="API\Patient\AddPatient\AddPatientService.cs" />
+    <Compile Include="API\Patient\Patient.cs" />
+    <Compile Include="API\Patient\PatientService.cs" />
     <Compile Include="PasswordHelper.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DoubleConverter.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\ModalViewModel\AddPatientViewModel.cs" />
     <Compile Include="ViewModels\PatientViewModel.cs" />
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MakingDiagnosisView.xaml.cs">
+      <DependentUpon>MakingDiagnosisView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModalViews\AddPatientView.xaml.cs">
+      <DependentUpon>AddPatientView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PatientView.xaml.cs">
       <DependentUpon>PatientView.xaml</DependentUpon>
@@ -110,6 +121,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MakingDiagnosisView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ModalViews\AddPatientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,7 +166,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Views\ModalViews\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\logo1.png" />

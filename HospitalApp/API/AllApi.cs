@@ -7,8 +7,6 @@ namespace HospitalApp.API
 
         public static readonly string LOGIN = BASE_URL + "login/";
 
-        public static readonly string CLIENT = BASE_URL + "api/client/";
-
-        public static readonly string MONITOR = BASE_URL + "api/monitors/";
+        public static readonly string PATIENT = BASE_URL + "api/patient/search/";
     }
 }
