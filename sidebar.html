@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/sidebar.css">
+</head>
+<body>
+    <div class="container">
+        <div class="blockSide">
+            <div class="side">
+                <div class="top">
+                    <img src="./assets/img/logo.png" alt="">
+                    <h1>Hospital</h1>
+                </div>
+                <div class="bottom">
+                    <a href="#">loremawkjefrhf</a>
+                    <a href="#">lorem</a>
+                </div>
+            </div>
+            <div class="main">
+                    <div class="table">
+                        <table id="myTable" class="display">
+                            <thead>
+                                <tr>
+                                    <th>№</th>
+                                    <th>Ismi familyasi</th>
+                                    <th>Telefon raqami</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Sardorbek Ikromjonov</td>
+                                    <td>+998 99 999 99 99</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Sardorbek Ikromjonov</td>
+                                    <td>+998 99 999 99 99</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Sardorbek Ikromjonov</td>
+                                    <td>+998 99 999 99 99</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>    
+            </div>
+        </div>
+    </div>
+    <script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+    </script>
+</body>
+</html>
