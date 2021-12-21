@@ -102,6 +102,8 @@
                 <!--#C4D4BD-->
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#FFFFFF"
                           >
+                    
+                    <!--Registration-->
                     <ListViewItem>
 
                         <i:Interaction.Triggers>
@@ -111,14 +113,38 @@
                         </i:Interaction.Triggers>
 
                         <StackPanel Height="60" Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Medicine" Margin="10" Height="25" Width="25" VerticalAlignment="Center"/>
-                            <TextBlock Text="Bemorlar" VerticalAlignment="Center" Margin="20 10"/>
+                            <materialDesign:PackIcon Kind="RegisteredTrademark" Margin="10" Height="25" Width="25" VerticalAlignment="Center"/>
+                            <TextBlock Text="Ro'yhatga olish" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
+                    
+                    <!--Hospitals-->
                     <ListViewItem>
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding UpdateViewCommand}" CommandParameter="Hospitals"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
                         <StackPanel Height="60" Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="HospitalBuilding" Margin="10" Height="25" Width="25" VerticalAlignment="Center"/>
                             <TextBlock Text="Shifoxonalar" VerticalAlignment="Center" Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <!--Doctors-->
+                    <ListViewItem>
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding UpdateViewCommand}" CommandParameter="Doctors"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <StackPanel Height="60" Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Doctor" Margin="10" Height="25" Width="25" VerticalAlignment="Center"/>
+                            <TextBlock Text="Shifokorlar" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                 </ListView>

@@ -12,9 +12,13 @@
                 <v:LoginView/>
             </DataTemplate>
 
-            <!--<DataTemplate DataType="{x:Type vm:PatientViewModel}">
-                <v:PatientView/>
-            </DataTemplate>-->
+            <DataTemplate DataType="{x:Type vm:DoctorViewModel}">
+                <v:DoctorView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:HospitalViewModel}">
+                <v:HospitalView/>
+            </DataTemplate>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ResourceDictionaries/MainResourceDictionary.xaml"/>

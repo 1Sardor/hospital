@@ -24,19 +24,17 @@ namespace ReseptionApp.Commands
 
         public void Execute(object parameter)
         {
-            //if (parameter.ToString() == "Orders")
-            //{
-            //    viewModel.SelectedViewModel = new OrdersViewModel();
-            //}
+            if (parameter.ToString() == "Doctors")
+            {
+                viewModel.SelectedViewModel = new DoctorViewModel();
+            }
 
-            //if (parameter.ToString() == "Monitors")
-            //{
-            //    viewModel.SelectedViewModel = new MonitorsViewModel();
-            //}
+            if (parameter.ToString() == "Hospitals")
+            {
+                viewModel.SelectedViewModel = new HospitalViewModel();
+            }
         }
-
-        //Monitors
-
+        //Hospitals
         #endregion
     }
 }

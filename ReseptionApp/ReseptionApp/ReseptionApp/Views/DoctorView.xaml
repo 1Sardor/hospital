@@ -1,0 +1,169 @@
+﻿<UserControl x:Class="ReseptionApp.Views.DoctorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ReseptionApp.Views"
+             mc:Ignorable="d" 
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             xmlns:wm="clr-namespace:ReseptionApp.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="730" d:DesignWidth="1250">
+    <UserControl.Resources>
+        <wm:DoubleConverter x:Key="DoubleConverter"/>
+    </UserControl.Resources>
+    <Grid Background="#F5F9FC">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <!-- first row -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--first column-->
+            <StackPanel Orientation="Horizontal">
+                <Button HorizontalAlignment="Right"
+                Height="40" Width="50"
+                Margin="10 0 10 0"
+                Style="{StaticResource btnMain}"
+                Command="{Binding RefreshCommand}">
+                    <materialDesign:PackIcon Kind="Refresh" Width="30"
+                                     Height="30"/>
+                </Button>
+            </StackPanel>
+
+
+            <Grid Grid.Column="1"
+                  HorizontalAlignment="Right">
+                <TextBox x:Name="txtSearch" Tag="Izlash..." Style="{StaticResource txtSearch}" 
+                     Width="500" Height="34" VerticalAlignment="Center"  
+                     Margin="0 0 10 0" >
+                    <TextBox.Text>
+                        <Binding Path="Search"
+                             UpdateSourceTrigger="PropertyChanged"/>
+                    </TextBox.Text>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SearchCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+
+                <materialDesign:PackIcon Kind="Search" Height="25" Width="25"
+                                     VerticalAlignment="Center" HorizontalAlignment="Right"
+                                     Margin="0 0 25 0"/>
+
+            </Grid>
+
+        </Grid>
+
+        <!--second row for datagrid-->
+        <Grid Grid.Row="1">
+            <ScrollViewer x:Name="scrollViewer" VerticalScrollBarVisibility="Disabled">
+                <ScrollViewer.Style>
+                    <Style TargetType="ScrollViewer">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasItems, ElementName=dataGridDoctor}" Value="False">
+                                <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ScrollViewer.Style>
+                <!--HorizontalGridLinesBrush="#E3E2E2"-->
+                <DataGrid x:Name="dataGridDoctor" Visibility="Visible"
+                        HorizontalScrollBarVisibility="Auto" 
+                        Width="Auto"
+                        Background="White"
+                        AutoGenerateColumns="False"
+                        GridLinesVisibility="Horizontal"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        IsReadOnly="False"
+                        CanUserReorderColumns="False"
+                        CanUserResizeColumns="False"
+                        CanUserResizeRows="False"
+                        Margin="10"
+                        BorderThickness="1" SelectionMode="Single" SelectionUnit="FullRow"
+                        AlternationCount="2"   
+                        ItemsSource="{Binding Path=DoctorList, Mode=TwoWay}"
+                        SelectedItem="{Binding Path=Doctor, Mode=TwoWay}">
+                    <DataGrid.Resources>
+                        <!--style for scrollbar-->
+                        <Style TargetType="ScrollBar">
+                            <Setter Property="Background" Value="#293A4C"/>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="№" Binding="{Binding get_order}" IsReadOnly="True" Width="70"/>
+                        <DataGridTextColumn Header="Shifokor" Binding="{Binding username}" IsReadOnly="True" Width="150*"/>
+
+                        <DataGridTextColumn Header="Telefon" Binding="{Binding phone}" IsReadOnly="True" Width="120"/>
+
+                        <!--<DataGridTemplateColumn>
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock TextAlignment="Left" 
+                                    Text="Izoh" Width="120"/>
+                            </DataGridTemplateColumn.Header>
+
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="120"
+                                               TextAlignment="Left"
+                                               TextWrapping="Wrap"
+                                               Text="{Binding comment,
+                                               Mode=TwoWay,
+                                               UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+
+                        </DataGridTemplateColumn>-->
+
+                        <DataGridTextColumn Header="Xona №" Binding="{Binding room}" IsReadOnly="True" Width="110"/>
+                        <DataGridTextColumn Header="Yo'nalish" Binding="{Binding direction.name}" IsReadOnly="True" Width="150*"/>
+                    
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </ScrollViewer>
+        </Grid>
+
+
+        <!--loading gif animation-->
+        <Grid Grid.Row="1"  Width="100" Height="100"
+              Visibility="{Binding LoadingVisibility}"
+              VerticalAlignment="Center">
+            <Grid.Background>
+                <VisualBrush>
+                    <VisualBrush.Visual>
+                        <Image gif:ImageBehavior.AnimatedSource="/Images/loading.gif"
+                           
+                   gif:ImageBehavior.AutoStart="True"
+                   gif:ImageBehavior.RepeatBehavior="1"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Grid.Background>
+        </Grid>
+
+        <Grid Grid.Row="2" HorizontalAlignment="Right"
+             Margin="0 0 5 0" Visibility="Collapsed">
+            <StackPanel Orientation="Horizontal">
+                <Button Style="{StaticResource btnMain}"
+                        Content="Arxivga olish"/>
+
+                <Button Style="{StaticResource btnMain}" 
+                        Content="Mijozlarga olish"/>
+
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</UserControl>

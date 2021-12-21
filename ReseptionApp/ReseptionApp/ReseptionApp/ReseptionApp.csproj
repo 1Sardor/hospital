@@ -75,13 +75,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="API\Doctor\Doctor.cs" />
+    <Compile Include="API\Doctor\DoctorService.cs" />
+    <Compile Include="API\Hospital\Hospital.cs" />
+    <Compile Include="API\Hospital\HospitalService.cs" />
     <Compile Include="API\Login\Login.cs" />
     <Compile Include="API\Login\LoginResponse.cs" />
     <Compile Include="API\Login\LoginService.cs" />
     <Compile Include="PasswordHelper.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\DoctorViewModel.cs" />
+    <Compile Include="ViewModels\DoubleConverter.cs" />
+    <Compile Include="ViewModels\HospitalViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\DoctorView.xaml.cs">
+      <DependentUpon>DoctorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HospitalView.xaml.cs">
+      <DependentUpon>HospitalView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -101,6 +114,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ResourceDictionaries\MainResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DoctorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HospitalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
