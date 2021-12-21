@@ -25,7 +25,7 @@
     padding: 20px;
 }
 
-.blockSide .top{
+.blockSide .side .top{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,7 +58,7 @@
     color: #273240;
 }
 
-.blockSide .bottom a:first-child{
+.blockSide .bottom a:nth-child(2){
     background: rgba(112, 127, 221, 0.1);
     color: #5A6ACF;
 }
@@ -66,33 +66,69 @@
 .blockSide .main{
     overflow: auto;   
     padding: 40px;
+    padding-left: 110px;
+    background: rgb(251, 252, 253);
+    position: relative;
 }
 
-.blockSide .main h1{
-    font-weight: 600;
-    letter-spacing: 0.2rem;
-    text-align: center;
+.blockSide .main::before{
+    content: '';
+    position: absolute;
+    touch-action: 0;
+    left: 80px;
+    width: 4px;
+    height: 600px;   
+    background: #959fb094;
+    border-radius: 5px;
 }
 
-.blockSide .table{
+.main .box{
     box-shadow: 0 3px 10px #00000050;
-    padding: 30px;
+    padding: 20px;
     border-radius: 20px;
+    background: #fff;
+    position: relative;
+    height: 200px;
+    margin: 15px 0;
 }
 
-.table th, .table td{
-    text-align: center;
+.main .box .top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.main .box .top h5{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.main .box .top h6{
+    font-size: 16px;
     letter-spacing: 0.1rem;
+    font-weight: 500;
 }
 
-.table tbody tr td a{
-    color: #000;
+.main .box p{
+    font-size: 14px;
+    line-height: 20px;   
 }
 
-.table tbody tr td a:hover{
+.ReadMore{
     color: #5A6ACF;
 }
 
-.table tbody tr td a:focus{
-    color: #5A6ACF;
+.main .box::after{
+    position: absolute;
+    content: '';
+    top: 25px;
+    left: -46px;
+    width: 30px; 
+    height: 30px;
+    background: #fff;
+    border-radius: 50%;
+    border: 2px solid #959fb094;
 }
+
+

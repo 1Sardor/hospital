@@ -30,7 +30,7 @@
 
 .container .nav .navLeft h2{
     margin-left: 20px;
-    color: #fff;
+    color: #000;
     margin-bottom: 0;
 }
 
@@ -49,19 +49,20 @@
     padding: 20px;
     font-size: 15px;
     letter-spacing: 0.2px;
-    color: #FFFFFF;
+    color: #000;
     transition: 0.4s;
 }
 
 .container .nav .navRight a:hover{
     transition: 0.4s;
-    color: #c1c1c1;
+    color: #252B42;
 }
 
 header  {
     position: relative;
     height: 800px;
-    background-image: url('https://media.istockphoto.com/photos/modern-hospital-building-picture-id1312706413');
+    background-image: url('https://i.pinimg.com/originals/9c/cf/82/9ccf828d7639e646d77437d305ec78df.jpg');
+    /* background-image: url('https://media.istockphoto.com/photos/modern-hospital-building-picture-id1312706413'); */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -95,7 +96,7 @@ header::after{
 }
 
 .linkSociac a{
-    color: #fff;
+    color: #000;
 }
 
 .linkSociac a.reg{
@@ -112,24 +113,23 @@ header::after{
 
 .headerTitle{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     flex-direction: column;
     padding-top: 200px;
+    padding-left: 150px;
 }
 
 .headerTitle h1{
-    color: #fff;
+    color: #000;
     max-width: 800px;
-    text-align: center;
     letter-spacing: 0.2rem;
     font-size: 45px;
 }
 
 .headerTitle p{
-    color: #fff;
+    color: #000;
     max-width: 800px;
-    text-align: center;
     letter-spacing: 0.2rem;
     font-size: 24px;
     padding-top: 20px;
