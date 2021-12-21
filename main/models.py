@@ -62,6 +62,7 @@ class Patient(models.Model):
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, null=True, blank=True)
     phone = models.IntegerField()
     birthday = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -113,3 +114,23 @@ class Queue(models.Model):
 
     def __str__(self):
         return self.number
+
+
+class Redirection(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+
+
+class Salary(models.Model):
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    price = models.IntegerField()
+    edited_date = models.DateField()
+
+
+class Bonus(models.Model):
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    price = models.IntegerField()
+    date = models.DateField()

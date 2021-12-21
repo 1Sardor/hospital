@@ -69,11 +69,34 @@ class PaymentSerializer(serializers.ModelSerializer):
 
 class PaymentTypesSerializer(serializers.ModelSerializer):
     class Meta:
+        depth = 1
         model = PaymentTypes
         fields = '__all__'
 
 
 class QueueSerializer(serializers.ModelSerializer):
     class Meta:
+        depth = 1
         model = Queue
+        fields = '__all__'
+
+
+class RedirectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        depth = 1
+        model = Redirection
+        fields = '__all__'
+
+
+class SalarySerializer(serializers.ModelSerializer):
+    class Meta:
+        depth = 1
+        model = Salary
+        fields = '__all__'
+
+
+class BonusSerializer(serializers.ModelSerializer):
+    class Meta:
+        depth = 1
+        model = Bonus
         fields = '__all__'

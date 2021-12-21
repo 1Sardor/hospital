@@ -63,3 +63,7 @@ class CommentsAdmin(admin.ModelAdmin):
 admin.site.register(Queue)
 admin.site.register(Payment)
 admin.site.register(Drugs)
+admin.site.register(Salary)
+admin.site.register(Redirection)
+
+admin.site.register(Bonus)

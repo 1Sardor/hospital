@@ -67,7 +67,11 @@ class DoctorView(viewsets.ModelViewSet):
             ser = self.serializer_class(user)
             return Response(ser.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
 
 
     @action(methods=['POST'], detail=False)
@@ -82,7 +86,11 @@ class DoctorView(viewsets.ModelViewSet):
             requests.get(url=f"http://192.168.67.104:8000/api/queue/get_last/?direction_id={user.direction.id}&hospital_id={user.hospital.id}")
             return Response({"message": "done"})
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
 
     @action(methods=['GET'], detail=False)
     def get_hospital_doctors(self, request):
@@ -92,7 +100,11 @@ class DoctorView(viewsets.ModelViewSet):
             ser = self.serializer_class(query, many=True)
             return Response(ser.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
 
 
 class DirectionView(viewsets.ModelViewSet):
@@ -123,7 +135,11 @@ class RegionView(viewsets.ModelViewSet):
             ser = self.serializer_class(query, many=True)
             return Response(ser.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
 
 
 class HospitalView(viewsets.ModelViewSet):
@@ -165,7 +181,27 @@ class PatientView(viewsets.ModelViewSet):
             ser = self.serializer_class(query, many=True)
             return Response(ser.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
+
+    @action(methods=['GET'], detail=False)
+    def filter_date(self, request):
+        try:
+            user = request.user
+            st_date = request.GET['st_date']
+            end_date = request.GET['end_date']
+            query = self.queryset.filter(created_at__gte=st_date, created_at__lte=end_date, hospital=user.hospital)
+            ser = self.serializer_class(query, many=True)
+            return Response(ser.data)
+        except Exception as err:
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
 
 
 class RetseptsView(viewsets.ModelViewSet):
@@ -182,7 +218,12 @@ class RetseptsView(viewsets.ModelViewSet):
             ser = self.serializer_class(query, many=True)
             return Response(ser.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
+
 
     @action(methods=['GET'], detail=False)
     def get_retsepts_of_client(self, request):
@@ -192,7 +233,11 @@ class RetseptsView(viewsets.ModelViewSet):
             ser = self.serializer_class(query, many=True)
             return Response(ser.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
 
 
 class CommentsView(viewsets.ModelViewSet):
@@ -210,7 +255,12 @@ class CommentsView(viewsets.ModelViewSet):
             ser = self.serializer_class(com)
             return Response(ser.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
+
 
     @action(methods=['GET'], detail=False)
     def get_comment_of_client(self, request):
@@ -220,7 +270,12 @@ class CommentsView(viewsets.ModelViewSet):
             ser = self.serializer_class(query, many=True)
             return Response(ser.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
+
 
     @action(methods=['GET'], detail=False)
     def get_comment_of_doctor(self, request):
@@ -230,7 +285,11 @@ class CommentsView(viewsets.ModelViewSet):
             ser = self.serializer_class(query, many=True)
             return Response(ser.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
 
 
 class DrugsView(viewsets.ModelViewSet):
@@ -248,7 +307,12 @@ class DrugsView(viewsets.ModelViewSet):
             ser = self.serializer_class(drug)
             return Response(ser.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
+
 
     @action(methods=['GET'], detail=False)
     def get_by_retsep(self, request):
@@ -258,7 +322,11 @@ class DrugsView(viewsets.ModelViewSet):
             ser = self.serializer_class(query, many=True)
             return Response(ser.data)
         except Exception as err:
-            return Response({"error": f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
 
 
 class PaymentView(viewsets.ModelViewSet):
@@ -275,7 +343,11 @@ class PaymentView(viewsets.ModelViewSet):
             query = self.serializer_class(payment)
             return Response(query.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
 
 
 class PaymentTypesView(viewsets.ModelViewSet):
@@ -296,7 +368,12 @@ class PaymentTypesView(viewsets.ModelViewSet):
             query = self.serializer_class(types)
             return Response(query.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
+
 
     @action(methods=['GET'], detail=False)
     def get_types(self, request):
@@ -306,7 +383,11 @@ class PaymentTypesView(viewsets.ModelViewSet):
             ser = self.serializer_class(query, many=True)
             return Response(ser.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
 
 
 class QueueView(viewsets.ModelViewSet):
@@ -324,4 +405,103 @@ class QueueView(viewsets.ModelViewSet):
             ser = self.serializer_class(last)
             return Response(ser.data)
         except Exception as err:
-            return Response({'error': f'{err}'})
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
+
+
+class RedirectionView(viewsets.ModelViewSet):
+    queryset = Redirection.objects.all()
+    serializer_class = RedirectionSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def create(self, request):
+        try:
+            patient = request.data['patient']
+            hospital = request.data['hospital']
+            red = Redirection.objects.create(patient_id=patient, hospital_id=hospital)
+            ser = self.serializer_class(red)
+            return Response(ser.data)
+        except Exception as err:
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
+
+
+class SalaryView(viewsets.ModelViewSet):
+    queryset = Salary.objects.all()
+    serializer_class = SalarySerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def create(self, request):
+        try:
+            hospital = request.data['hospital']
+            doctor = request.data['doctor']
+            price = request.data['price']
+            edited_date = request.data['edited_date']
+            salary = Salary.objects.create(hospital_id=hospital, doctor_id=doctor, price=price, edited_date=edited_date)
+            ser = self.serializer_class(salary, many=True)
+            return Response(ser.data)
+        except Exception as err:
+            data = {
+                'status': 500,
+                'error': f'{err}'
+            }
+            return Response(data)
+
+    @action(methods=['GET'], detail=False)
+    def get_by_hospital(self, request):
+        try:
+            hospital = request.data['hospital']
+            query = self.queryset.filter(hospital_id=hospital)
+            ser = self.serializer_class(query, many=True)
+            return Response(ser.data)
+        except Exception as err:
+            data = {
+                'status': 500,
+                "error": f'{err}'
+            }
+            return Response(data)
+
+
+class BonusView(viewsets.ModelViewSet):
+    queryset = Bonus.objects.all()
+    serializer_class = BonusSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def create(self, request):
+        try:
+            hospital = request.data['hospital']
+            doctor = request.data['doctor']
+            price = request.data['price']
+            date = request.data['date']
+            bonus = Bonus.objects.create(hospital_id=hospital, doctor_id=doctor, price=price, date=date)
+            ser = self.serializer_class(bonus)
+            return Response(ser.data)
+        except Exception as err:
+            data = {
+                "status": 500,
+                'error': f'{err}'
+            }
+            return Response(data)
+
+    @action(methods=['GET'], detail=False)
+    def get_by_hospital(self, request):
+        try:
+            hospital = request.GET['hospital']
+            query = self.queryset.filter(hospital_id=hospital)
+            ser = self.serializer_class(query, many=True)
+            return Response(ser.data)
+        except Exception as err:
+            data = {
+                'status': 500,
+                'error': f'{err}',
+            }
+            return Response(data)
