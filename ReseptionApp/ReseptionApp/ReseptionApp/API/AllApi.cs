@@ -11,5 +11,9 @@ namespace ReseptionApp.API
 
         public static readonly string HOSPITAL = BASE_URL + "api/hospital/";
 
+        public static readonly string PATIENT = BASE_URL + "api/patient/filter_date/";
+
+        public static readonly string PATINET_ADD = BASE_URL + "api/patient/";
+
     }
 }

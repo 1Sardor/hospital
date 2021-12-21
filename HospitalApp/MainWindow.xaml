@@ -87,7 +87,7 @@
 
         <!--#9d9fa2-->
         <!--#354052-->
-        <Grid x:Name="GridMenu" Width="200" HorizontalAlignment="Left" Background="#47BAC1"
+        <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Background="#47BAC1"
               Visibility="{Binding MainMenuVisibility}">
 
             <StackPanel>

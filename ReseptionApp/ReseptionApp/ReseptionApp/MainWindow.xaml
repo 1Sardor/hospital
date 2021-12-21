@@ -87,7 +87,7 @@
 
         <!--#9d9fa2-->
         <!--#354052-->
-        <Grid x:Name="GridMenu" Width="200" HorizontalAlignment="Left" Background="#47BAC1"
+        <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Background="#47BAC1"
               Visibility="{Binding MainMenuVisibility}">
 
             <StackPanel>
@@ -108,7 +108,7 @@
 
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding UpdateViewCommand}" CommandParameter="Orders"/>
+                                <i:InvokeCommandAction Command="{Binding UpdateViewCommand}" CommandParameter="Reception"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
 

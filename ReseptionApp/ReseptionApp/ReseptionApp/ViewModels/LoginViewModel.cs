@@ -14,9 +14,6 @@ namespace ReseptionApp.ViewModels
             _viewModel = viewModel;
             LoadingVisibility = Visibility.Collapsed;
 
-            Username = "Abdurahmon";
-            Password = "123";
-
             _loginService = new LoginService();
 
             SignInCommand = new RelayCommand(SignInFunc);

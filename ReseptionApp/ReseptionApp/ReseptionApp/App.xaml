@@ -20,6 +20,10 @@
                 <v:HospitalView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type vm:ReceptionViewModel}">
+                <v:ReceptionView/>
+            </DataTemplate>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ResourceDictionaries/MainResourceDictionary.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />

@@ -33,6 +33,13 @@ namespace ReseptionApp.Commands
             {
                 viewModel.SelectedViewModel = new HospitalViewModel();
             }
+
+            if (parameter.ToString() == "Reception")
+            {
+                viewModel.SelectedViewModel = new ReceptionViewModel();
+            }
+
+            //Reception
         }
         //Hospitals
         #endregion

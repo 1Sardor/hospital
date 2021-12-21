@@ -82,6 +82,10 @@
     <Compile Include="API\Login\Login.cs" />
     <Compile Include="API\Login\LoginResponse.cs" />
     <Compile Include="API\Login\LoginService.cs" />
+    <Compile Include="API\Patient\AddPatient\AddPatient.cs" />
+    <Compile Include="API\Patient\AddPatient\AddPatientService.cs" />
+    <Compile Include="API\Patient\Patient.cs" />
+    <Compile Include="API\Patient\PatientService.cs" />
     <Compile Include="PasswordHelper.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DoctorViewModel.cs" />
@@ -89,6 +93,8 @@
     <Compile Include="ViewModels\HospitalViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\ModalViewModels\AddClientViewModel.cs" />
+    <Compile Include="ViewModels\ReceptionViewModel.cs" />
     <Compile Include="Views\DoctorView.xaml.cs">
       <DependentUpon>DoctorView.xaml</DependentUpon>
     </Compile>
@@ -97,6 +103,12 @@
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModalViews\AddClientView.xaml.cs">
+      <DependentUpon>AddClientView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReceptionView.xaml.cs">
+      <DependentUpon>ReceptionView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -126,6 +138,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ModalViews\AddClientView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReceptionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
