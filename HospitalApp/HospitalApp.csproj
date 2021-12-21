@@ -83,13 +83,19 @@
     <Compile Include="API\Patient\AddPatient\AddPatientService.cs" />
     <Compile Include="API\Patient\Patient.cs" />
     <Compile Include="API\Patient\PatientService.cs" />
+    <Compile Include="API\Retsept\Retsept.cs" />
+    <Compile Include="API\Retsept\RetseptItem\RetseptItem.cs" />
+    <Compile Include="API\Retsept\RetseptItem\RetseptItemService.cs" />
+    <Compile Include="API\Retsept\RetseptService.cs" />
     <Compile Include="PasswordHelper.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DoubleConverter.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MakingDiagnosisViewModel.cs" />
     <Compile Include="ViewModels\ModalViewModel\AddPatientViewModel.cs" />
     <Compile Include="ViewModels\PatientViewModel.cs" />
+    <Compile Include="ViewModels\RetseptItemViewModel.cs" />
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -101,6 +107,9 @@
     </Compile>
     <Compile Include="Views\PatientView.xaml.cs">
       <DependentUpon>PatientView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RetseptItemView.xaml.cs">
+      <DependentUpon>RetseptItemView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -133,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PatientView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RetseptItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

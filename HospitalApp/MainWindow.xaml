@@ -106,7 +106,7 @@
 
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding UpdateViewCommand}" CommandParameter="Orders"/>
+                                <i:InvokeCommandAction Command="{Binding UpdateViewCommand}" CommandParameter="Patient"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
 

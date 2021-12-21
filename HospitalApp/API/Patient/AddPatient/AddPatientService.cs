@@ -14,7 +14,7 @@ namespace HospitalApp.API.Patient.AddPatient
             var response = false;
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri(AllApi.PATIENT);
+                client.BaseAddress = new Uri(AllApi.PATINET_ADD);
                 client.DefaultRequestHeaders.Add("Authorization", $"token {MainWindowViewModel.user_token}");
 
                 string json = JsonConvert.SerializeObject(model);

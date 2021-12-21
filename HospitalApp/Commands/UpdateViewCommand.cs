@@ -24,10 +24,10 @@ namespace HospitalApp.Commands
 
         public void Execute(object parameter)
         {
-            //if (parameter.ToString() == "Orders")
-            //{
-            //    viewModel.SelectedViewModel = new OrdersViewModel();
-            //}
+            if (parameter.ToString() == "Patient")
+            {
+                viewModel.SelectedViewModel = new PatientViewModel(viewModel);
+            }
 
             //if (parameter.ToString() == "Monitors")
             //{

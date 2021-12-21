@@ -2,6 +2,7 @@
 using HospitalApp.API.Patient;
 using HospitalApp.Commands;
 using HospitalApp.ViewModels.ModalViewModel;
+using HospitalApp.Views;
 using HospitalApp.Views.ModalViews;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,9 @@ namespace HospitalApp.ViewModels
     {
         #region Constructor
 
-        public PatientViewModel()
+        public PatientViewModel(MainWindowViewModel viewModel)
         {
+            _viewModel = viewModel;
             LoadingVisibility = Visibility.Collapsed;
             PatientVisibility = Visibility.Collapsed;
             ClientAddVisibility = Visibility.Collapsed;
@@ -29,11 +31,16 @@ namespace HospitalApp.ViewModels
             searchProductTimer.Interval = new TimeSpan(0, 0, 1);
 
             OpenAddPatientViewCommand = new RelayCommand(OpenAddPatientViewFunc);
+
+            OpenMakingDiagnosisViewCommand = new RelayCommand(OpenMakingDiagnosisView);
         }
 
         #endregion
 
         #region Private Fields
+
+        // mainwindow view model
+        public MainWindowViewModel _viewModel { get; set; }
 
         // loading visibility animation
         private Visibility loadingVisibility;
@@ -106,6 +113,8 @@ namespace HospitalApp.ViewModels
 
         public RelayCommand OpenAddPatientViewCommand { get; set; }
 
+        public RelayCommand OpenMakingDiagnosisViewCommand { get; set; }
+
         #endregion
 
         #region Helper Methods
@@ -154,11 +163,32 @@ namespace HospitalApp.ViewModels
         {
             AddPatientView addPatientView = new AddPatientView();
 
-            AddPatientViewModel addPatientViewModel = new AddPatientViewModel();
+            AddPatientViewModel addPatientViewModel = new AddPatientViewModel(_viewModel, addPatientView);
 
-            addPatientView.DataContext = new AddPatientViewModel();
+            addPatientView.DataContext = addPatientViewModel;
 
             addPatientView.ShowDialog();
+        }
+
+        public void OpenMakingDiagnosisView()
+        {
+            try
+            {
+                MakingDiagnosisViewModel.patient_id = Patient.id;
+
+                MakingDiagnosisView makingDiagnosisView = new MakingDiagnosisView();
+
+                MakingDiagnosisViewModel makingDiagnosisViewModel = new MakingDiagnosisViewModel(_viewModel);
+
+                makingDiagnosisView.DataContext = makingDiagnosisViewModel;
+
+                _viewModel.SelectedViewModel = makingDiagnosisViewModel;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Xatoliklar", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
 
         #endregion

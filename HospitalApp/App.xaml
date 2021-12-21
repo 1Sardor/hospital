@@ -16,6 +16,14 @@
                 <v:PatientView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type vm:MakingDiagnosisViewModel}">
+                <v:MakingDiagnosisView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:RetseptItemViewModel}">
+                <v:RetseptItemView/>
+            </DataTemplate>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ResourceDictionaries/MainResourceDictionary.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />

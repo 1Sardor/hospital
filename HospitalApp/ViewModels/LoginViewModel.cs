@@ -94,7 +94,7 @@ namespace HospitalApp.ViewModels
                     MainWindowViewModel.user_token = loginResponse.token;
 
                     _viewModel.Username = loginResponse.username;
-                    _viewModel.SelectedViewModel = new PatientViewModel();
+                    _viewModel.SelectedViewModel = new PatientViewModel(_viewModel);
                     _viewModel.MainMenuVisibility = Visibility.Visible;
                     _viewModel.AccountVisibility = Visibility.Visible;
                 }

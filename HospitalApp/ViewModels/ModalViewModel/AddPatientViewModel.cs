@@ -1,5 +1,8 @@
 ﻿using HospitalApp.API.Patient.AddPatient;
 using HospitalApp.Commands;
+using HospitalApp.Views;
+using HospitalApp.Views.ModalViews;
+using System;
 using System.Windows;
 
 namespace HospitalApp.ViewModels.ModalViewModel
@@ -8,8 +11,10 @@ namespace HospitalApp.ViewModels.ModalViewModel
     {
         #region Constructor
 
-        public AddPatientViewModel()
+        public AddPatientViewModel(MainWindowViewModel viewModel, AddPatientView view)
         {
+            _viewModel = viewModel;
+            _view = view;
             LoadingVisibility = Visibility.Collapsed;
 
             _addPatientService = new AddPatientService();
@@ -20,6 +25,10 @@ namespace HospitalApp.ViewModels.ModalViewModel
         #endregion
 
         #region Private Fields
+
+        public MainWindowViewModel _viewModel { get; set; }
+
+        public AddPatientView _view { get; set; }
 
         // loading visibility
         private Visibility loadingVisibility;
@@ -89,7 +98,26 @@ namespace HospitalApp.ViewModels.ModalViewModel
                 LoadingVisibility = Visibility.Collapsed;
                 if(result)
                 {
-                    MessageBox.Show("done");
+                    MessageBox.Show("Bemor muvaffaqiyatli qo'shildi!", "Xabar", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    try
+                    {
+                        MakingDiagnosisViewModel.patient_id = 0;
+
+                        MakingDiagnosisView makingDiagnosisView = new MakingDiagnosisView();
+
+                        MakingDiagnosisViewModel makingDiagnosisViewModel = new MakingDiagnosisViewModel(_viewModel);
+
+                        makingDiagnosisView.DataContext = makingDiagnosisViewModel;
+
+                        _viewModel.SelectedViewModel = makingDiagnosisViewModel;
+                        _view.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Xatoliklar", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
                 }
 
                 else

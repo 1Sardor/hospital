@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="HospitalApp.Views.RetseptItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HospitalApp.Views"
+             mc:Ignorable="d"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             xmlns:wm="clr-namespace:HospitalApp.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="730" d:DesignWidth="1250">
+    <UserControl.Resources>
+        <wm:DoubleConverter x:Key="DoubleConverter"/>
+    </UserControl.Resources>
+    <Grid Background="#F5F9FC">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <!--Patient history-->
+        <Grid Grid.Row="0">
+            <TextBlock Text="{Binding Retsept_date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       FontSize="36" HorizontalAlignment="Center"
+                       VerticalAlignment="Top"/>
+            <ScrollViewer x:Name="scrollViewer1" VerticalScrollBarVisibility="Disabled">
+                <ScrollViewer.Style>
+                    <Style TargetType="ScrollViewer">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasItems, ElementName=dataGridPatientHistory}" Value="False">
+                                <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ScrollViewer.Style>
+                <!--HorizontalGridLinesBrush="#E3E2E2"-->
+                <DataGrid x:Name="dataGridPatientHistory" Visibility="Visible"
+                        HorizontalScrollBarVisibility="Auto" 
+                        Width="Auto"
+                        Background="White"
+                        AutoGenerateColumns="False"
+                        GridLinesVisibility="Horizontal"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        IsReadOnly="False"
+                        CanUserReorderColumns="False"
+                        CanUserResizeColumns="False"
+                        CanUserResizeRows="False"
+                        Margin="10 50 10 0"
+                        BorderThickness="1" SelectionMode="Single" SelectionUnit="FullRow"
+                        AlternationCount="2"   
+                        ItemsSource="{Binding Path=RetseptItemList, Mode=TwoWay}"
+                        SelectedItem="{Binding Path=RetseptItem, Mode=TwoWay}">
+                    <DataGrid.Resources>
+                        <!--style for scrollbar-->
+                        <Style TargetType="ScrollBar">
+                            <Setter Property="Background" Value="#293A4C"/>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="№" Binding="{Binding get_order}" IsReadOnly="True" Width="70"/>
+                        <DataGridTextColumn Header="Dori nomi" Binding="{Binding name}" IsReadOnly="True" Width="150*"/>
+                        <DataGridTextColumn Header="Istemol" Binding="{Binding duration}" IsReadOnly="True" Width="150*"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </ScrollViewer>
+        </Grid>
+
+        <!--loading gif animation-->
+        <Grid Grid.Row="0"  Width="100" Height="100"
+              Visibility="{Binding LoadingVisibility}"
+              VerticalAlignment="Center">
+            <Grid.Background>
+                <VisualBrush>
+                    <VisualBrush.Visual>
+                        <Image gif:ImageBehavior.AnimatedSource="/Images/loading.gif"
+                           
+                   gif:ImageBehavior.AutoStart="True"
+                   gif:ImageBehavior.RepeatBehavior="1"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Grid.Background>
+        </Grid>
+
+        <Button Grid.Row="1" Style="{StaticResource btnMain}" 
+                        
+                HorizontalAlignment="Right"
+                Width="150"
+                Command="{Binding BackToRetseptCommand}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="ArrowBack"
+                                         Width="25" Height="25"
+                                         VerticalAlignment="Center"
+                                         Margin="0 0 10 0"/>
+                <TextBlock Text="Orqaga" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+
+    </Grid>
+</UserControl>

@@ -39,7 +39,7 @@
                 </Button>
 
                 <Button Margin="0 0 0 0"
-                    Content="Yangi qo'shish"
+                    Content="Kasalliklar tarixi"
                     Style="{StaticResource btnMain}">
 
                 </Button>
@@ -48,30 +48,18 @@
 
             <Grid Grid.Column="1"
                   HorizontalAlignment="Right">
-                <TextBox x:Name="txtSearch" Tag="Izlash..." Style="{StaticResource txtSearch}" 
-                     Width="500" Height="34" VerticalAlignment="Center"  
-                     Margin="0 0 10 0" >
-                    <TextBox.Text>
-                        <Binding Path="Search"
-                             UpdateSourceTrigger="PropertyChanged"/>
-                    </TextBox.Text>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="TextChanged">
-                            <i:InvokeCommandAction Command="{Binding SearchCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
-
-                <materialDesign:PackIcon Kind="Search" Height="25" Width="25"
-                                     VerticalAlignment="Center" HorizontalAlignment="Right"
-                                     Margin="0 0 25 0"/>
-
+                <Button Style="{StaticResource btnMain}"
+                        Content="Retseptlar"
+                        Command="{Binding GetRetseptsCommand}"/>
             </Grid>
 
         </Grid>
 
         <!--second row for datagrid-->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Visibility="{Binding RetseptsHistoryVisibility}">
+            <TextBlock Text="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       FontSize="36" HorizontalAlignment="Center"
+                       VerticalAlignment="Top"/>
             <ScrollViewer x:Name="scrollViewer" VerticalScrollBarVisibility="Disabled">
                 <ScrollViewer.Style>
                     <Style TargetType="ScrollViewer">
@@ -95,11 +83,82 @@
                         CanUserReorderColumns="False"
                         CanUserResizeColumns="False"
                         CanUserResizeRows="False"
-                        Margin="10"
+                        Margin="10 50 10 0"
+                        BorderThickness="1" SelectionMode="Single" SelectionUnit="FullRow"
+                        AlternationCount="2"   
+                        ItemsSource="{Binding Path=RetseptList, Mode=TwoWay}"
+                        SelectedItem="{Binding Path=Retsept, Mode=TwoWay}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding OpenRetseptItemViewCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                    <DataGrid.Resources>
+                        <!--style for scrollbar-->
+                        <Style TargetType="ScrollBar">
+                            <Setter Property="Background" Value="#293A4C"/>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="№" Binding="{Binding get_order}" IsReadOnly="True" Width="70"/>
+                        <DataGridTextColumn Header="Sana" Binding="{Binding date}" IsReadOnly="True" Width="150*"/>
+
+
+                        <DataGridTextColumn Header="Shifokor" Binding="{Binding doctor.username}" IsReadOnly="True" Width="120*"/>
+
+
+                        <DataGridTextColumn Header="Bemor" Binding="{Binding patient.name}" IsReadOnly="True" Width="120*"/>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </ScrollViewer>
+        </Grid>
+
+        <!--Patient history-->
+        <Grid Grid.Row="1" Visibility="{Binding PatientHistoryVisibility}">
+            <TextBlock Text="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       FontSize="36" HorizontalAlignment="Center"
+                       VerticalAlignment="Top"/>
+            <ScrollViewer x:Name="scrollViewer1" VerticalScrollBarVisibility="Disabled">
+                <ScrollViewer.Style>
+                    <Style TargetType="ScrollViewer">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasItems, ElementName=dataGridPatientHistory}" Value="False">
+                                <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ScrollViewer.Style>
+                <!--HorizontalGridLinesBrush="#E3E2E2"-->
+                <DataGrid x:Name="dataGridPatientHistory" Visibility="Visible"
+                        HorizontalScrollBarVisibility="Auto" 
+                        Width="Auto"
+                        Background="White"
+                        AutoGenerateColumns="False"
+                        GridLinesVisibility="Horizontal"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        IsReadOnly="False"
+                        CanUserReorderColumns="False"
+                        CanUserResizeColumns="False"
+                        CanUserResizeRows="False"
+                        Margin="10 50 10 0"
                         BorderThickness="1" SelectionMode="Single" SelectionUnit="FullRow"
                         AlternationCount="2"   
                         ItemsSource="{Binding Path=ClientList, Mode=TwoWay}"
                         SelectedItem="{Binding Path=Client, Mode=TwoWay}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding OpenRetseptItemViewCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
                     <DataGrid.Resources>
                         <!--style for scrollbar-->
                         <Style TargetType="ScrollBar">
@@ -110,67 +169,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="№" Binding="{Binding get_order}" IsReadOnly="True" Width="70"/>
                         <DataGridTextColumn Header="Mijoz" Binding="{Binding name}" IsReadOnly="True" Width="150*"/>
-
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.Header>
-                                <TextBlock TextAlignment="Left" 
-                                    Text="Kompaniya" Width="100"/>
-                            </DataGridTemplateColumn.Header>
-
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Width="100"
-                                               TextAlignment="Left"
-                                               TextWrapping="Wrap"
-                                               Text="{Binding company_name,
-                                               Mode=TwoWay,
-                                               UpdateSourceTrigger=PropertyChanged}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-
-                        </DataGridTemplateColumn>
-
-                        <DataGridTextColumn Header="Telefon" Binding="{Binding phone}" IsReadOnly="True" Width="120"/>
-
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.Header>
-                                <TextBlock TextAlignment="Left" 
-                                    Text="Izoh" Width="120"/>
-                            </DataGridTemplateColumn.Header>
-
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Width="120"
-                                               TextAlignment="Left"
-                                               TextWrapping="Wrap"
-                                               Text="{Binding comment,
-                                               Mode=TwoWay,
-                                               UpdateSourceTrigger=PropertyChanged}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-
-                        </DataGridTemplateColumn>
-
-                        <DataGridTextColumn Header="Ovoz(audio)" Binding="{Binding audio}" IsReadOnly="True" Width="110"/>
                         <DataGridTextColumn Header="Xabar topdi" Binding="{Binding agent}" IsReadOnly="True" Width="120"/>
-                        <DataGridTextColumn Header="Uchrashuv vaqti" Binding="{Binding created_at}" IsReadOnly="True" Width="160"/>
-
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.Header>
-                                <TextBlock TextAlignment="Center" 
-                                    Text="Berilgan mal.lar" Width="100"/>
-                            </DataGridTemplateColumn.Header>
-
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Style="{StaticResource btnMain}"
-                                            Width="80" Height="34"
-                                            Content="Ko'rish"
-                                            FontSize="14"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-
-                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
 
                 </DataGrid>
@@ -195,17 +194,12 @@
             </Grid.Background>
         </Grid>
 
-        <Grid Grid.Row="2" HorizontalAlignment="Right"
-             Margin="0 0 5 0">
-            <StackPanel Orientation="Horizontal">
-                <Button Style="{StaticResource btnMain}"
-                        Content="Arxivga olish"/>
-
-                <Button Style="{StaticResource btnMain}" 
-                        Content="Mijozlarga olish"/>
-
-            </StackPanel>
-        </Grid>
+        <Button Grid.Row="3" Style="{StaticResource btnMain}" 
+                        Content="{Binding BtnStatus, Mode=TwoWay,
+                        UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Right"
+                Width="300"
+                />
 
     </Grid>
 </UserControl>

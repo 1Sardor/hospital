@@ -82,6 +82,13 @@
                         AlternationCount="2"   
                         ItemsSource="{Binding Path=PatientList, Mode=TwoWay}"
                         SelectedItem="{Binding Path=Patient, Mode=TwoWay}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding OpenMakingDiagnosisViewCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
                     <DataGrid.Resources>
                         <!--style for scrollbar-->
                         <Style TargetType="ScrollBar">
