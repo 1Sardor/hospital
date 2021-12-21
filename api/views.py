@@ -139,10 +139,27 @@ class PatientView(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
+    def create(self, request):
+        try:
+            user = request.user
+            name = request.data['name']
+            phone = request.data['phone']
+            birthday = request.data['birthday']
+            patient = Patient.objects.create(name=name, phone=phone, birthday=birthday, hospital=user.hospital)
+            ser = self.serializer_class(patient)
+            return Response(ser.data)
+        except Exception as err:
+            data = {
+                'status': 500,
+                'error': f'{err}'
+            }
+            return Response(data)
+
     @action(methods=['GET'], detail=False)
     def search(self, request):
         try:
             user = request.user
+            print(user)
             search = request.GET['search']
             query = self.queryset.filter(name__icontains=search, hospital=user.hospital)
             ser = self.serializer_class(query, many=True)
@@ -171,7 +188,7 @@ class RetseptsView(viewsets.ModelViewSet):
     def get_retsepts_of_client(self, request):
         try:
             client = request.GET['client']
-            query = self.queryset.filter(client=client)
+            query = self.queryset.filter(patient=client)
             ser = self.serializer_class(query, many=True)
             return Response(ser.data)
         except Exception as err:

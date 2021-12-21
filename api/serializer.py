@@ -43,7 +43,7 @@ class PatientSerializer(serializers.ModelSerializer):
 
 class RetseptsSerializer(serializers.ModelSerializer):
     class Meta:
-        depth = 1
+        depth = 2
         model = Retsepts
         fields = '__all__'
 
@@ -56,6 +56,7 @@ class CommentsSerializer(serializers.ModelSerializer):
 
 class DrugsSerializer(serializers.ModelSerializer):
     class Meta:
+        depth = 2
         model = Drugs
         fields = '__all__'
 
