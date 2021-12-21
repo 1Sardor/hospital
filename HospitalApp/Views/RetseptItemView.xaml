@@ -86,19 +86,39 @@
             </Grid.Background>
         </Grid>
 
-        <Button Grid.Row="1" Style="{StaticResource btnMain}" 
+        <Grid Grid.Row="1" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal">
+                <Button Style="{StaticResource btnMain}" 
+                        
+                HorizontalAlignment="Right"
+                Width="150"
+                Command="{Binding PrintRetseptCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Printer"
+                                         Width="25" Height="25"
+                                         VerticalAlignment="Center"
+                                         Margin="0 0 10 0"/>
+                        <TextBlock Text="Pechat" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource btnMain}" 
                         
                 HorizontalAlignment="Right"
                 Width="150"
                 Command="{Binding BackToRetseptCommand}">
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon Kind="ArrowBack"
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ArrowBack"
                                          Width="25" Height="25"
                                          VerticalAlignment="Center"
                                          Margin="0 0 10 0"/>
-                <TextBlock Text="Orqaga" VerticalAlignment="Center"/>
+                        <TextBlock Text="Orqaga" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
             </StackPanel>
-        </Button>
+        </Grid>
+        
+        
 
     </Grid>
 </UserControl>

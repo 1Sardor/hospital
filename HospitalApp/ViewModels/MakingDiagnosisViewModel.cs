@@ -164,7 +164,7 @@ namespace HospitalApp.ViewModels
 
             RetseptItemView retseptItemView = new RetseptItemView();
 
-            RetseptItemViewModel retseptItemViewModel = new RetseptItemViewModel(_viewModel, Retsept.date);
+            RetseptItemViewModel retseptItemViewModel = new RetseptItemViewModel(_viewModel, Retsept.date, Retsept.doctor.username, Retsept.patient.hospital.name);
 
             _viewModel.SelectedViewModel = retseptItemViewModel;
 

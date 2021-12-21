@@ -11,6 +11,22 @@ namespace HospitalApp.API.Retsept
         public Patient patient { get; set; }
     }
 
+    public class Direction
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+    }
+
+    public class Hospital
+    {
+        public int id { get; set; }
+        public int type { get; set; }
+        public string name { get; set; }
+        public string phone { get; set; }
+        public string inn { get; set; }
+        public int region { get; set; }
+    }
+
     public class Doctor
     {
         public int id { get; set; }
@@ -27,8 +43,8 @@ namespace HospitalApp.API.Retsept
         public int type { get; set; }
         public string phone { get; set; }
         public string room { get; set; }
-        public int direction { get; set; }
-        public int hospital { get; set; }
+        public Direction direction { get; set; }
+        public Hospital hospital { get; set; }
         public List<object> groups { get; set; }
         public List<object> user_permissions { get; set; }
     }
@@ -39,6 +55,6 @@ namespace HospitalApp.API.Retsept
         public string name { get; set; }
         public int phone { get; set; }
         public string birthday { get; set; }
-        public int hospital { get; set; }
+        public Hospital hospital { get; set; }
     }
 }
